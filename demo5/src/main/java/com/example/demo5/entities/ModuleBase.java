@@ -1,11 +1,11 @@
 package com.example.demo5.entities;
 
-public class Module {
+public class ModuleBase {
     int Id;
     String QrCode;
     int IdBatterie;
 
-    public Module(){}
+    public ModuleBase(){}
 
     public int getId() {
         return Id;

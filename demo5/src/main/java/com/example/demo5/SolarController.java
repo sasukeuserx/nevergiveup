@@ -2,10 +2,9 @@ package com.example.demo5;
 
 import com.example.demo5.entities.Client;
 import com.example.demo5.entities.Donnee;
-import com.example.demo5.entities.Module;
+import com.example.demo5.entities.ModuleBase;
 import com.example.demo5.entities.UsefulEntity;
 import com.example.demo5.fonc.Fonction;
-import com.sun.org.apache.xpath.internal.operations.Mod;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -55,7 +54,7 @@ public class SolarController {
     }
 
     @GetMapping("listemodule")
-    public ArrayList<Module> listemodule() throws Exception{
+    public ArrayList<ModuleBase> listemodule() throws Exception{
         return Fonction.getListModule();
     }
 
@@ -65,12 +64,12 @@ public class SolarController {
     }
 
     @GetMapping("modulebyid/{idmodule}")
-    public Module moduleById(@PathVariable("idmodule") String idmodule) throws Exception{
+    public ModuleBase moduleById(@PathVariable("idmodule") String idmodule) throws Exception{
         return Fonction.getModuleById(Integer.parseInt(idmodule));
     }
 
     @GetMapping("modulebyidclient/{idclient}")
-    public Module moduleByIdClient(@PathVariable("idclient") String idclient) throws Exception{
+    public ModuleBase moduleByIdClient(@PathVariable("idclient") String idclient) throws Exception{
         return Fonction.moduleByIdClient(Integer.parseInt(idclient));
     }
 

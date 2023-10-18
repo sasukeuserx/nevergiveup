@@ -2,7 +2,6 @@ package com.example.demo5.fonc;
 
 import com.example.demo5.conn.Connexion;
 import com.example.demo5.entities.*;
-import com.sun.org.apache.xpath.internal.operations.Mod;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -104,7 +103,7 @@ public class Fonction {
     public static void insertDonnee(String idmodule, String voltagepanneau, String voltageoutput, String voltagebatterie, String consommation, String production) throws Exception {
         long milliseconds = System.currentTimeMillis();
         Timestamp temps = new Timestamp(milliseconds);
-        Module module = getModuleById(Integer.parseInt(idmodule));
+        ModuleBase module = getModuleById(Integer.parseInt(idmodule));
         double capacitebatterie = getTypeBatterieById(module.getIdBatterie()).getValeur();
         double pourcentage = 0;
         double[] val = new double[5];
@@ -178,12 +177,12 @@ public class Fonction {
             e.printStackTrace();
         }
     }
-    public static Module getModuleById(int id) throws Exception{
+    public static ModuleBase getModuleById(int id) throws Exception{
         String sql = "select * from module where id="+id;
         Connection connection = conn.getConn();
         Statement stmt = connection.createStatement();
         ResultSet rs = stmt.executeQuery(sql);
-        Module res = new Module();
+        ModuleBase res = new ModuleBase();
         while(rs.next()){
             res.setId(rs.getInt("id"));
             res.setQrCode(rs.getString("qrcode"));
@@ -193,14 +192,14 @@ public class Fonction {
         return res;
     }
 
-    public static ArrayList<Module> getListModule() throws Exception{
+    public static ArrayList<ModuleBase> getListModule() throws Exception{
         String sql = "select * from module";
         Connection connection = conn.getConn();
         Statement stmt = connection.createStatement();
         ResultSet rs = stmt.executeQuery(sql);
-        ArrayList<Module> liste = new ArrayList<>();
+        ArrayList<ModuleBase> liste = new ArrayList<>();
         while(rs.next()){
-            Module res = new Module();
+            ModuleBase res = new ModuleBase();
             res.setId(rs.getInt("id"));
             res.setQrCode(rs.getString("qrcode"));
             res.setIdBatterie(rs.getInt("idbatterie"));
@@ -224,7 +223,7 @@ public class Fonction {
         return res;
     }
 
-    public static Module moduleByIdClient(int idclient) throws Exception{
+    public static ModuleBase moduleByIdClient(int idclient) throws Exception{
         return getModuleById(getClientModuleByIdClient(idclient).getIdModule());
     }
 
