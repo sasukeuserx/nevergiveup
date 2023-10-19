@@ -33,10 +33,10 @@ public class SolarController {
         }
     }
 
-    @GetMapping("insertclient/{email}/{pass}/{lienimage}/{adresse}/{codepostal}")
-    public void insertClient(@PathVariable("email") String email, @PathVariable("pass") String pass, @PathVariable("lienimage") String lienimage, @PathVariable("adresse") String adresse, @PathVariable("codepostal") String codepostal){
+    @GetMapping("insertclient/{nom}/{prenom}/{email}/{pass}/{lienimage}/{adresse}/{codepostal}")
+    public void insertClient(@PathVariable("nom") String nom, @PathVariable("prenom") String prenom, @PathVariable("email") String email, @PathVariable("pass") String pass, @PathVariable("lienimage") String lienimage, @PathVariable("adresse") String adresse, @PathVariable("codepostal") String codepostal){
         try{
-            Fonction.signUpClient(email, pass, lienimage, adresse, codepostal);
+            Fonction.signUpClient(nom, prenom, email, pass, lienimage, adresse, codepostal);
         }
         catch (Exception e){
             e.printStackTrace();

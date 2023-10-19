@@ -50,6 +50,8 @@ public class Fonction {
         while(rs.next()){
             Client cl = new Client();
             cl.setId(rs.getInt("id"));
+            cl.setNom(rs.getString("nom"));
+            cl.setPrenom(rs.getString("prenom"));
             cl.setEmail(rs.getString("email"));
             cl.setPass(rs.getString("pass"));
             cl.setLienImage(rs.getString("lienimage"));
@@ -69,6 +71,8 @@ public class Fonction {
         Client cl = new Client();
         while(rs.next()){
             cl.setId(rs.getInt("id"));
+            cl.setNom(rs.getString("nom"));
+            cl.setPrenom(rs.getString("prenom"));
             cl.setEmail(rs.getString("email"));
             cl.setPass(rs.getString("pass"));
             cl.setLienImage(rs.getString("lienimage"));
@@ -92,8 +96,8 @@ public class Fonction {
         return usefulEntitySolar;
     }
 
-    public static void signUpClient(String email, String pass, String lienimage, String adresse, String codepostale) throws Exception{
-        String sql = "insert into client(email,pass,lienimage,adresse,codepostal) values ('"+email+"','"+pass+"','"+lienimage+"','"+adresse+"','"+codepostale+"')";
+    public static void signUpClient(String nom, String prenom, String email, String pass, String lienimage, String adresse, String codepostale) throws Exception{
+        String sql = "insert into client(nom,prenom,email,pass,lienimage,adresse,codepostal) values ('"+nom+"','"+prenom+"','"+email+"','"+pass+"','"+lienimage+"','"+adresse+"','"+codepostale+"')";
         Connection connection = conn.getConn();
         Statement stmt = connection.createStatement();
         stmt.executeUpdate(sql);

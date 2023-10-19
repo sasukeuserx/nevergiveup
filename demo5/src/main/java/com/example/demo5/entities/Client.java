@@ -2,6 +2,10 @@ package com.example.demo5.entities;
 
 public class Client {
     int Id;
+
+    String Nom;
+
+    String Prenom;
     String Email;
     String Pass;
     String LienImage;
@@ -10,6 +14,22 @@ public class Client {
     boolean HaveQr;
 
     public Client(){}
+
+    public String getNom() {
+        return Nom;
+    }
+
+    public void setNom(String nom) {
+        Nom = nom;
+    }
+
+    public String getPrenom() {
+        return Prenom;
+    }
+
+    public void setPrenom(String prenom) {
+        Prenom = prenom;
+    }
 
     public int getId() {
         return Id;
