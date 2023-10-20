@@ -116,7 +116,7 @@ public class Fonction {
         val[2] = Double.parseDouble(voltagebatterie);
         val[3] = Double.parseDouble(production);
         val[4] = Double.parseDouble(consommation);
-        pourcentage = (capacitebatterie*Double.parseDouble(voltagebatterie))/100;
+        pourcentage = (Double.parseDouble(voltagebatterie) * 100)/capacitebatterie;
         String sql = "insert into donnees(idmodule,voltagepanneau,voltageoutput,voltagebatterie,production,consommation,valeurbatterie,temps) values ("+Integer.parseInt(idmodule)+","+val[0]+","+val[1]+","+val[2]+","+val[3]+","+val[4]+","+pourcentage+",'"+temps+"')";
         Connection connection = conn.getConn();
         Statement stmt = connection.createStatement();
