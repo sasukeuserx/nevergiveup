@@ -1,9 +1,13 @@
 package com.example.demo5.fonc;
 
+import javafx.beans.binding.Bindings;
+
 import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.TimeZone;
 
 public class Utilites {
     public static Timestamp generateTime() {
@@ -27,5 +31,11 @@ public class Utilites {
         Date parsedDate = dateFormat.parse(dateString);
 
         return new Timestamp(parsedDate.getTime());
+    }
+
+    public static Timestamp generateTimestamp() {
+        Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("Indian/Antananarivo"));
+        long currentTimeMillis = cal.getTimeInMillis();
+        return new Timestamp(currentTimeMillis);
     }
 }
