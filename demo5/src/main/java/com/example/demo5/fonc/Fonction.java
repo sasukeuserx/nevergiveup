@@ -105,7 +105,8 @@ public class Fonction {
     }
 
     public static void insertDonnee(String idmodule, String voltagepanneau, String voltageoutput, String voltagebatterie, String consommation, String production) throws Exception {
-        Timestamp temps = Utilites.generateTimestamp();
+        long milliseconds = System.currentTimeMillis();
+        Timestamp temps = new Timestamp(milliseconds);
         ModuleBase module = getModuleById(Integer.parseInt(idmodule));
         double capacitebatterie = getTypeBatterieById(module.getIdBatterie()).getValeur();
         double pourcentage = 0;
