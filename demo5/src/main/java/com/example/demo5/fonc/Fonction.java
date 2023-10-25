@@ -147,7 +147,9 @@ public class Fonction {
         return liste;
     }
 
-    public static ArrayList<Donnee> getListDonneeSpecifique(String t1, String t2) throws Exception {
+    public static ArrayList<Donnee> getListDonneeSpecifique(String mois, String jour, String heure1, String heure2) throws Exception {
+        Timestamp t1 = Utilites.makeTime(mois,jour,heure1);
+        Timestamp t2 = Utilites.makeTime(mois,jour,heure2);
         String sql = "select * from donnees where temps >= '"+t1+"' and temps <= '"+t2+"'";
         Connection connection = conn.getConn();
         Statement stmt = connection.createStatement();
@@ -168,7 +170,6 @@ public class Fonction {
         connection.close();
         return liste;
     }
-
     public static void insertModule(String qrcode, String idbatterie){
         String sql = "insert into module(qrcode,idbatterie) values ('"+qrcode+"',"+Integer.parseInt(idbatterie)+")";
         try{

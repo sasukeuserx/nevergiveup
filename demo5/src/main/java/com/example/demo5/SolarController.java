@@ -5,6 +5,7 @@ import com.example.demo5.entities.Donnee;
 import com.example.demo5.entities.ModuleBase;
 import com.example.demo5.entities.UsefulEntity;
 import com.example.demo5.fonc.Fonction;
+import com.example.demo5.fonc.Utilites;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -21,6 +22,11 @@ public class SolarController {
     @GetMapping("listedonnees")
     public ArrayList<Donnee> listedonnee () throws Exception{
         return Fonction.getListDonnee();
+    }
+
+    @GetMapping("listedonneespec/{mois}/{jour}/{heure1}/{heure2}")
+    public ArrayList<Donnee> listedonneespec(@PathVariable("mois")String mois, @PathVariable("jour")String jour,@PathVariable("heure1") String heure1,@PathVariable("heure2") String heure2) throws Exception{
+        return Fonction.getListDonneeSpecifique(mois,jour,heure1,heure2);
     }
 
     @GetMapping("insertdonnees/{idmodule}/{voltagepanneau}/{voltageoutput}/{voltagebatterie}/{production}/{consommation}")
