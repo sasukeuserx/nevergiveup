@@ -1,13 +1,9 @@
 package com.example.demo5.fonc;
 
-import javafx.beans.binding.Bindings;
-
 import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
-import java.util.TimeZone;
 
 public class Utilites {
     public static Timestamp generateTime() {
