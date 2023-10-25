@@ -33,9 +33,15 @@ public class Utilites {
         return new Timestamp(parsedDate.getTime());
     }
 
-    public static Timestamp generateTimestamp() {
-        Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("Indian/Antananarivo"));
-        long currentTimeMillis = cal.getTimeInMillis();
-        return new Timestamp(currentTimeMillis);
+//    public static Timestamp generateTimestamp() {
+//        Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("Indian/Antananarivo"));
+//        long currentTimeMillis = cal.getTimeInMillis();
+//        return new Timestamp(currentTimeMillis);
+//    }
+
+    public static Timestamp generateTimestamp(){
+        long milliseconds = System.currentTimeMillis();
+        Timestamp temps = new Timestamp(milliseconds);
+        return temps;
     }
 }
