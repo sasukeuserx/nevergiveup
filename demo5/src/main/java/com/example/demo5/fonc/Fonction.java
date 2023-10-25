@@ -105,7 +105,6 @@ public class Fonction {
     }
 
     public static void insertDonnee(String idmodule, String voltagepanneau, String voltageoutput, String voltagebatterie, String consommation, String production) throws Exception {
-        Timestamp temps = Utilites.generateTimestamp();
         ModuleBase module = getModuleById(Integer.parseInt(idmodule));
         double capacitebatterie = getTypeBatterieById(module.getIdBatterie()).getValeur();
         double pourcentage = 0;
@@ -116,7 +115,7 @@ public class Fonction {
         val[3] = Double.parseDouble(production);
         val[4] = Double.parseDouble(consommation);
         pourcentage = (Double.parseDouble(voltagebatterie) * 100)/capacitebatterie;
-        String sql = "insert into donnees(idmodule,voltagepanneau,voltageoutput,voltagebatterie,production,consommation,valeurbatterie,temps) values ("+Integer.parseInt(idmodule)+","+val[0]+","+val[1]+","+val[2]+","+val[3]+","+val[4]+","+pourcentage+",'"+temps+"')";
+        String sql = "insert into donnees(idmodule,voltagepanneau,voltageoutput,voltagebatterie,production,consommation,valeurbatterie,temps) values ("+Integer.parseInt(idmodule)+","+val[0]+","+val[1]+","+val[2]+","+val[3]+","+val[4]+","+pourcentage+",'"+Utilites.generateTimestamp()+"')";
         Connection connection = conn.getConn();
         Statement stmt = connection.createStatement();
         stmt.executeUpdate(sql);
