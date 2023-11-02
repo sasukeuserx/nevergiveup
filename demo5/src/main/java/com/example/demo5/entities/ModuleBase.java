@@ -5,6 +5,8 @@ public class ModuleBase {
     String QrCode;
     int IdBatterie;
 
+    boolean State;
+
     public ModuleBase(){}
 
     public int getId() {
@@ -29,5 +31,13 @@ public class ModuleBase {
 
     public void setIdBatterie(int idBatterie) {
         IdBatterie = idBatterie;
+    }
+
+    public boolean isState() {
+        return State;
+    }
+
+    public void setState(boolean state) {
+        State = state;
     }
 }

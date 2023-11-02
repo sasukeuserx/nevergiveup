@@ -88,4 +88,14 @@ public class SolarController {
     public static void deletedata(){
         Fonction.DeleteData();
     }
+
+    @GetMapping("allumer/{idmodule}")
+    public static void Allumer(@PathVariable("idmodule") int idmodule) throws Exception {
+        Fonction.Allumer(idmodule);
+    }
+
+    @GetMapping("eteindre/{idmodule}")
+    public static void Eteindre(@PathVariable("idmodule") int idmodule) throws Exception {
+        Fonction.Eteindre(idmodule);
+    }
 }

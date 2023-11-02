@@ -190,6 +190,7 @@ public class Fonction {
             res.setId(rs.getInt("id"));
             res.setQrCode(rs.getString("qrcode"));
             res.setIdBatterie(rs.getInt("idbatterie"));
+            res.setState(rs.getBoolean("state"));
         }
         connection.close();
         return res;
@@ -206,6 +207,7 @@ public class Fonction {
             res.setId(rs.getInt("id"));
             res.setQrCode(rs.getString("qrcode"));
             res.setIdBatterie(rs.getInt("idbatterie"));
+            res.setState(rs.getBoolean("state"));
             liste.add(res);
         }
         connection.close();
@@ -245,6 +247,32 @@ public class Fonction {
 
     public static void DeleteData(){
         String sql = "delete from donnees";
+        try{
+            Connection connection = conn.getConn();
+            Statement stmt = connection.createStatement();
+            stmt.executeUpdate(sql);
+            connection.close();
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    public static void Eteindre(int idmodule) throws Exception{
+        String sql = "update module set state=false where id="+idmodule;
+        try{
+            Connection connection = conn.getConn();
+            Statement stmt = connection.createStatement();
+            stmt.executeUpdate(sql);
+            connection.close();
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    public static void Allumer(int idmodule) throws Exception{
+        String sql = "update module set state=true where id="+idmodule;
         try{
             Connection connection = conn.getConn();
             Statement stmt = connection.createStatement();
