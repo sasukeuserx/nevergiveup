@@ -74,11 +74,6 @@ public class SolarController {
         return Fonction.getModuleById(Integer.parseInt(idmodule));
     }
 
-    @GetMapping("modulebyidclient/{idclient}")
-    public ModuleBase moduleByIdClient(@PathVariable("idclient") String idclient) throws Exception{
-        return Fonction.moduleByIdClient(Integer.parseInt(idclient));
-    }
-
     @GetMapping("attributionmoduleclient/{idclient}/{idmodule}")
     public void Attribution(@PathVariable("idclient") String idclient, @PathVariable("idmodule") String idmodule){
         Fonction.AttributionModuleClient(idmodule,idclient);
@@ -98,4 +93,10 @@ public class SolarController {
     public static void Eteindre(@PathVariable("idmodule") int idmodule) throws Exception {
         Fonction.Eteindre(idmodule);
     }
+
+    @GetMapping("eteindre/{idmodule}")
+    public static void SwitchModule(@PathVariable("idmodule") int idmodule) throws Exception {
+        Fonction.SwitchModule(idmodule);
+    }
+
 }

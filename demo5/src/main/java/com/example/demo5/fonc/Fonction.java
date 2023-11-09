@@ -190,10 +190,27 @@ public class Fonction {
             res.setId(rs.getInt("id"));
             res.setQrCode(rs.getString("qrcode"));
             res.setIdBatterie(rs.getInt("idbatterie"));
+            res.setSsid(rs.getString("ssid"));
+            res.setPassword(rs.getString("password"));
+            res.setSsidESP(rs.getString("ssidesp"));
+            res.setPasswordESP(rs.getString("passwordesp"));
             res.setState(rs.getBoolean("state"));
         }
         connection.close();
         return res;
+    }
+
+    public static void ConfigurerWiFiModule(int idmodule, String ssid, String password){
+        String sql = "update module set ssid='"+ssid+"' and password="+password+" where id="+idmodule;
+        try{
+            Connection connection = conn.getConn();
+            Statement stmt = connection.createStatement();
+            stmt.executeUpdate(sql);
+            connection.close();
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
     public static ArrayList<ModuleBase> getListModule() throws Exception{
@@ -212,24 +229,6 @@ public class Fonction {
         }
         connection.close();
         return liste;
-    }
-
-    public static ClientModule getClientModuleByIdClient(int idclient)throws Exception{
-        String sql = "select * from clientmodule module where idclient="+idclient;
-        Connection connection = conn.getConn();
-        Statement stmt = connection.createStatement();
-        ResultSet rs = stmt.executeQuery(sql);
-        ClientModule res = new ClientModule();
-        while (rs.next()){
-            res.setIdModule(rs.getInt("idmodule"));
-            res.setIdClient(rs.getInt("idclient"));
-        }
-        connection.close();
-        return res;
-    }
-
-    public static ModuleBase moduleByIdClient(int idclient) throws Exception{
-        return getModuleById(getClientModuleByIdClient(idclient).getIdModule());
     }
 
     public static void AttributionModuleClient(String idmodule, String idclient){
@@ -283,6 +282,36 @@ public class Fonction {
             e.printStackTrace();
         }
     }
+
+    public static void SwitchModule(int idmodule)throws Exception{
+        ModuleBase mb = getModuleById(idmodule);
+        if(mb.isState()){
+            Eteindre(idmodule);
+        }
+        else{
+            Allumer(idmodule);
+        }
+    }
+
+    public static VClientModule ModuleByIdClient(int idclient) throws Exception{
+        String sql = "select * from vclientmodule where idclient="+idclient;
+        Connection connection = conn.getConn();
+        Statement stmt = connection.createStatement();
+        ResultSet rs = stmt.executeQuery(sql);
+        ArrayList<ModuleBase> liste = new ArrayList<>();
+        VClientModule res = new VClientModule();
+        while(rs.next()){
+            res.setIdModule(rs.getInt("idmodule"));
+            res.setQrCode(rs.getString("qrcode"));
+            res.setNomModule(rs.getString("nommodule"));
+            res.setIdBatterie(rs.getInt("idbatterie"));
+            res.setIdClient(rs.getInt("idclient"));
+        }
+        connection.close();
+        return res;
+    }
+
+
 
     public static void main(String[] args) {
 

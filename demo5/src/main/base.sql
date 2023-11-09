@@ -12,6 +12,32 @@ drop table panneau cascade;
 drop table modulepanneau cascade;
 drop table donneemodulebatterie cascade;
 drop table donneemodulepanneau cascade;
+drop table modulewifi cascade;
+
+create table typebatterie(
+    id serial not null,
+    valeur int not null,
+    primary key(id)
+);
+
+insert into typebatterie(valeur) values (12);
+insert into typebatterie(valeur) values (24);
+
+create table module(
+    id serial not null,
+    qrcode varchar(100) not null default 'qrcode',
+    nommodule varchar(100) not null default 'module1',
+    idbatterie int not null default 1,
+    ssidESP varchar(100) not null,
+    passwordESP varchar(100) not null,
+    ssid varchar(100) not null default 'null',
+    password varchar(100) not null default 'null',
+    state boolean not null default false,
+    primary key(id),
+    foreign key(idbatterie) references typebatterie(id)
+);
+
+insert into module(qrcode,nommodule,idbatterie,ssidESP,passwordESP) values ('qrcode','module1',1,'Module1','mdp1');
 
 create table client(
     id serial not null,
@@ -23,27 +49,8 @@ create table client(
     codepostal varchar(100) not null,
     lienimage oid not null,
     haveqr boolean not null default true,
-    primary key(id)
-);
-
-create table typebatterie(
-    id serial not null,
-    valeur int not null,
-    primary key(id)
-);
-
-create table module(
-    id serial not null,
-    qrcode varchar(100) not null,
-    primary key(id)
-);
-
-create table clientmodule(
-    id serial not null,
-    idclient int not null,
     idmodule int not null,
     primary key(id),
-    foreign key(idclient) references client(id),
     foreign key(idmodule) references module(id)
 );
 
@@ -83,3 +90,7 @@ create table donnees(
     primary key(id),
     foreign key(idmodule) references module(id)
 );
+
+create or replace view vclientmodule as
+select m.id idmodule,m.qrcode,m.nommodule,m.idbatterie,m.ssidESP,m.passwordESP,m.ssid,m.password,c.id idclient from client c
+join module m on c.idmodule = m.id;
