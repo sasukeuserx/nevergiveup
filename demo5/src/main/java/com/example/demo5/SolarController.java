@@ -94,7 +94,7 @@ public class SolarController {
         Fonction.Eteindre(idmodule);
     }
 
-    @GetMapping("eteindre/{idmodule}")
+    @GetMapping("switchmodule/{idmodule}")
     public static void SwitchModule(@PathVariable("idmodule") int idmodule) throws Exception {
         Fonction.SwitchModule(idmodule);
     }
