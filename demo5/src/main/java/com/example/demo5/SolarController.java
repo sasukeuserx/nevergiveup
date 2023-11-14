@@ -24,6 +24,11 @@ public class SolarController {
         return Fonction.getListDonnee();
     }
 
+    @GetMapping("listetodaydonnees")
+    public ArrayList<Donnee> listetodaydonnee () throws Exception{
+        return Fonction.getListDonneeTodayDate();
+    }
+
     @GetMapping("listedonneespec/{mois}/{jour}/{heure1}/{heure2}")
     public ArrayList<Donnee> listedonneespec(@PathVariable("mois")String mois, @PathVariable("jour")String jour,@PathVariable("heure1") String heure1,@PathVariable("heure2") String heure2) throws Exception{
         return Fonction.getListDonneeSpecifique(mois,jour,heure1,heure2);

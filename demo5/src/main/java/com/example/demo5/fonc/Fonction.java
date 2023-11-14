@@ -145,6 +145,29 @@ public class Fonction {
         return liste;
     }
 
+    public static ArrayList<Donnee> getListDonneeTodayDate() throws Exception {
+        String sql = "select * from vdatatodaydate";
+        Connection connection = conn.getConn();
+        Statement stmt = connection.createStatement();
+        ResultSet rs = stmt.executeQuery(sql);
+        ArrayList<Donnee> liste = new ArrayList<>();
+        while(rs.next()){
+            Donnee d = new Donnee();
+            d.setId(rs.getInt("id"));
+            d.setIdModule(rs.getInt("idmodule"));
+            d.setVoltagePanneau(rs.getDouble("voltagepanneau"));
+            d.setVoltageOutput(rs.getDouble("voltageoutput"));
+            d.setVoltageBatterie(rs.getDouble("voltagebatterie"));
+            d.setProduction(rs.getDouble("production"));
+            d.setConsommation(rs.getDouble("consommation"));
+            d.setTemps(rs.getTimestamp("temps"));
+            d.setValeurBatterie(rs.getDouble("valeurbatterie"));
+            liste.add(d);
+        }
+        connection.close();
+        return liste;
+    }
+
     public static ArrayList<Donnee> getListDonneeSpecifique(String mois, String jour, String heure1, String heure2) throws Exception {
         Timestamp t1 = Utilites.makeTime(mois,jour,heure1);
         Timestamp t2 = Utilites.makeTime(mois,jour,heure2);

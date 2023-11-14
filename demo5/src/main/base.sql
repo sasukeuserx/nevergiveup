@@ -94,3 +94,17 @@ create table donnees(
 create or replace view vclientmodule as
 select m.id idmodule,m.qrcode,m.nommodule,m.idbatterie,m.ssidESP,m.passwordESP,m.ssid,m.password,c.id idclient from client c
 join module m on c.idmodule = m.id;
+
+insert into donnees(idmodule,voltagepanneau,voltageoutput,voltagebatterie,production,consommation,valeurbatterie,temps)
+values (1,1,1,1,1,1,1,'2023-11-14 12:00:00');
+insert into donnees(idmodule,voltagepanneau,voltageoutput,voltagebatterie,production,consommation,valeurbatterie,temps)
+values (1,1,1,1,1,1,1,'2023-11-14 13:00:00');
+insert into donnees(idmodule,voltagepanneau,voltageoutput,voltagebatterie,production,consommation,valeurbatterie,temps)
+values (1,1,1,1,1,1,1,'2023-11-14 14:00:00');
+insert into donnees(idmodule,voltagepanneau,voltageoutput,voltagebatterie,production,consommation,valeurbatterie,temps)
+values (1,1,1,1,1,1,1,'2023-11-13 12:00:00');
+
+create or replace view vdatatodaydate as
+SELECT *
+FROM donnees
+WHERE DATE(temps) = CURRENT_DATE;
