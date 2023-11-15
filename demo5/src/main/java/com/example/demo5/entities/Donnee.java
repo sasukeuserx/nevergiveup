@@ -9,7 +9,6 @@ public class Donnee {
     double VoltageOutput;
     double VoltageBatterie;
     double Production;
-    double Consommation;
     double ValeurBatterie;
 
     Timestamp Temps;
@@ -62,14 +61,6 @@ public class Donnee {
 
     public void setProduction(double production) {
         Production = production;
-    }
-
-    public double getConsommation() {
-        return Consommation;
-    }
-
-    public void setConsommation(double consommation) {
-        Consommation = consommation;
     }
 
     public double getValeurBatterie() {

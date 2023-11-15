@@ -2,6 +2,7 @@ package com.example.demo5.fonc;
 
 import com.example.demo5.conn.Connexion;
 import com.example.demo5.entities.*;
+import javafx.scene.control.Tab;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -104,24 +105,71 @@ public class Fonction {
         connection.close();
     }
 
-    public static void insertDonnee(String idmodule, String voltagepanneau, String voltageoutput, String voltagebatterie, String consommation, String production) throws Exception {
+    public static void insertDonnee(String idmodule, String voltagepanneau, String voltageoutput, String voltagebatterie, String production) throws Exception {
         ModuleBase module = getModuleById(Integer.parseInt(idmodule));
         double capacitebatterie = getTypeBatterieById(module.getIdBatterie()).getValeur();
         double pourcentage = 0;
-        double[] val = new double[5];
+        double[] val = new double[4];
         val[0] = Double.parseDouble(voltagepanneau);
         val[1] = Double.parseDouble(voltageoutput);
         val[2] = Double.parseDouble(voltagebatterie);
         val[3] = Double.parseDouble(production);
-        val[4] = Double.parseDouble(consommation);
         pourcentage = (Double.parseDouble(voltagebatterie) * 100)/capacitebatterie;
-        String sql = "insert into donnees(idmodule,voltagepanneau,voltageoutput,voltagebatterie,production,consommation,valeurbatterie,temps) values ("+Integer.parseInt(idmodule)+","+val[0]+","+val[1]+","+val[2]+","+val[3]+","+val[4]+","+pourcentage+",'"+Utilites.generateTimestamp()+"')";
+        String sql = "insert into donnees(idmodule,voltagepanneau,voltageoutput,voltagebatterie,production,valeurbatterie,temps) values ("+Integer.parseInt(idmodule)+","+val[0]+","+val[1]+","+val[2]+","+val[3]+","+pourcentage+",'"+Utilites.generateTimestamp()+"')";
         Connection connection = conn.getConn();
         Statement stmt = connection.createStatement();
         stmt.executeUpdate(sql);
         connection.close();
     }
 
+    public static void insertConsommation(int idmodule, String valeur){
+        try{
+            String sql = "insert into tableconsommation(idmodule,valeur,temps) values("+idmodule+","+Double.parseDouble(valeur)+",'"+Utilites.generateTimestamp()+"')";
+            Connection connection = conn.getConn();
+            Statement stmt = connection.createStatement();
+            stmt.executeUpdate(sql);
+            connection.close();
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    public static ArrayList<TableConsommation> listeconsommation(int idmodule) throws Exception{
+        String sql = "select * from tablecomsommation where idmodule="+idmodule;
+        Connection connection = conn.getConn();
+        Statement stmt = connection.createStatement();
+        ResultSet rs = stmt.executeQuery(sql);
+        ArrayList<TableConsommation> liste = new ArrayList<>();
+        while(rs.next()){
+            TableConsommation d = new TableConsommation();
+            d.setId(rs.getInt("id"));
+            d.setIdModule(rs.getInt("idmodule"));
+            d.setValeur(rs.getDouble("valeur"));
+            d.setTemps(rs.getTimestamp("temps"));
+            liste.add(d);
+        }
+        connection.close();
+        return liste;
+    }
+
+    public static ArrayList<TableConsommation> listetodayconsommation(int idmodule) throws Exception{
+        String sql = "select * from vconsommationtoday where idmodule="+idmodule;
+        Connection connection = conn.getConn();
+        Statement stmt = connection.createStatement();
+        ResultSet rs = stmt.executeQuery(sql);
+        ArrayList<TableConsommation> liste = new ArrayList<>();
+        while(rs.next()){
+            TableConsommation d = new TableConsommation();
+            d.setId(rs.getInt("id"));
+            d.setIdModule(rs.getInt("idmodule"));
+            d.setValeur(rs.getDouble("valeur"));
+            d.setTemps(rs.getTimestamp("temps"));
+            liste.add(d);
+        }
+        connection.close();
+        return liste;
+    }
     public static ArrayList<Donnee> getListDonnee() throws Exception {
         String sql = "select * from donnees";
         Connection connection = conn.getConn();
@@ -136,7 +184,6 @@ public class Fonction {
             d.setVoltageOutput(rs.getDouble("voltageoutput"));
             d.setVoltageBatterie(rs.getDouble("voltagebatterie"));
             d.setProduction(rs.getDouble("production"));
-            d.setConsommation(rs.getDouble("consommation"));
             d.setTemps(rs.getTimestamp("temps"));
             d.setValeurBatterie(rs.getDouble("valeurbatterie"));
             liste.add(d);
@@ -159,7 +206,6 @@ public class Fonction {
             d.setVoltageOutput(rs.getDouble("voltageoutput"));
             d.setVoltageBatterie(rs.getDouble("voltagebatterie"));
             d.setProduction(rs.getDouble("production"));
-            d.setConsommation(rs.getDouble("consommation"));
             d.setTemps(rs.getTimestamp("temps"));
             d.setValeurBatterie(rs.getDouble("valeurbatterie"));
             liste.add(d);
@@ -183,7 +229,6 @@ public class Fonction {
             d.setVoltageOutput(rs.getDouble("voltageoutput"));
             d.setVoltageBatterie(rs.getDouble("voltagebatterie"));
             d.setProduction(rs.getDouble("production"));
-            d.setConsommation(rs.getDouble("consommation"));
             d.setTemps(rs.getTimestamp("temps"));
             d.setValeurBatterie(rs.getDouble("valeurbatterie"));
             liste.add(d);

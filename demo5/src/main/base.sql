@@ -84,7 +84,6 @@ create table donnees(
     voltageoutput real not null,
     voltagebatterie real not null,
     production real not null,
-    consommation real not null,
     valeurbatterie real not null,
     temps timestamp not null,
     primary key(id),
@@ -95,16 +94,25 @@ create or replace view vclientmodule as
 select m.id idmodule,m.qrcode,m.nommodule,m.idbatterie,m.ssidESP,m.passwordESP,m.ssid,m.password,c.id idclient from client c
 join module m on c.idmodule = m.id;
 
-insert into donnees(idmodule,voltagepanneau,voltageoutput,voltagebatterie,production,consommation,valeurbatterie,temps)
-values (1,1,1,1,1,1,1,'2023-11-14 12:00:00');
-insert into donnees(idmodule,voltagepanneau,voltageoutput,voltagebatterie,production,consommation,valeurbatterie,temps)
-values (1,1,1,1,1,1,1,'2023-11-14 13:00:00');
-insert into donnees(idmodule,voltagepanneau,voltageoutput,voltagebatterie,production,consommation,valeurbatterie,temps)
-values (1,1,1,1,1,1,1,'2023-11-14 14:00:00');
-insert into donnees(idmodule,voltagepanneau,voltageoutput,voltagebatterie,production,consommation,valeurbatterie,temps)
-values (1,1,1,1,1,1,1,'2023-11-13 12:00:00');
-
 create or replace view vdatatodaydate as
 SELECT *
 FROM donnees
+WHERE DATE(temps) = CURRENT_DATE;
+
+DELETE FROM donnees WHERE DATE(temps) = CURRENT_DATE();
+
+drop table donnees cascade;
+
+CREATE TABLE tableconsommation(
+    id serial not null,
+    idmodule int not null,
+    valeur real not null,
+    temps timestamp not null,
+    primary key(id),
+    foreign key(idmodule) references module(id)
+);
+
+create or replace view vconsommationtoday as
+SELECT *
+FROM tableconsommation
 WHERE DATE(temps) = CURRENT_DATE;

@@ -1,9 +1,6 @@
 package com.example.demo5;
 
-import com.example.demo5.entities.Client;
-import com.example.demo5.entities.Donnee;
-import com.example.demo5.entities.ModuleBase;
-import com.example.demo5.entities.UsefulEntity;
+import com.example.demo5.entities.*;
 import com.example.demo5.fonc.Fonction;
 import com.example.demo5.fonc.Utilites;
 import org.springframework.web.bind.annotation.*;
@@ -34,10 +31,10 @@ public class SolarController {
         return Fonction.getListDonneeSpecifique(mois,jour,heure1,heure2);
     }
 
-    @GetMapping("insertdonnees/{idmodule}/{voltagepanneau}/{voltageoutput}/{voltagebatterie}/{production}/{consommation}")
-    public void insertDonnees(@PathVariable("idmodule") String idmodule, @PathVariable("voltagepanneau") String voltagepanneau, @PathVariable("voltageoutput") String voltageoutput, @PathVariable("voltagebatterie") String voltagebatterie, @PathVariable("production") String production, @PathVariable("consommation") String consommation){
+    @GetMapping("insertdonnees/{idmodule}/{voltagepanneau}/{voltageoutput}/{voltagebatterie}/{production}")
+    public void insertDonnees(@PathVariable("idmodule") String idmodule, @PathVariable("voltagepanneau") String voltagepanneau, @PathVariable("voltageoutput") String voltageoutput, @PathVariable("voltagebatterie") String voltagebatterie, @PathVariable("production") String production){
         try{
-            Fonction.insertDonnee(idmodule, voltagepanneau, voltageoutput, voltagebatterie, production, consommation);
+            Fonction.insertDonnee(idmodule, voltagepanneau, voltageoutput, voltagebatterie, production);
         }
         catch (Exception e){
             e.printStackTrace();
@@ -104,4 +101,18 @@ public class SolarController {
         Fonction.SwitchModule(idmodule);
     }
 
+    @GetMapping("listeconsommation/{idmodule}")
+    public static ArrayList<TableConsommation> ListeConsommation(@PathVariable("idmodule") int idmodule) throws Exception {
+        return Fonction.listeconsommation(idmodule);
+    }
+
+    @GetMapping("listetodayconsommation/{idmodule}")
+    public static ArrayList<TableConsommation> ListeTodayConsommation(@PathVariable("idmodule") int idmodule) throws Exception {
+        return Fonction.listetodayconsommation(idmodule);
+    }
+
+    @GetMapping("insertconsommation/{idmodule}/{valeur}")
+    public static void InsertConsommation(@PathVariable("idmodule") int idmodule, @PathVariable("valeur") String valeur){
+        Fonction.insertConsommation(idmodule, valeur);
+    }
 }
