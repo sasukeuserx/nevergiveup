@@ -135,7 +135,7 @@ public class Fonction {
     }
 
     public static ArrayList<TableConsommation> listeconsommation(int idmodule) throws Exception{
-        String sql = "select * from tablecomsommation where idmodule="+idmodule;
+        String sql = "select * from tableconsommation where idmodule="+idmodule;
         Connection connection = conn.getConn();
         Statement stmt = connection.createStatement();
         ResultSet rs = stmt.executeQuery(sql);
