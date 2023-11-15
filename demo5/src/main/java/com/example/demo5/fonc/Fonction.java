@@ -2,7 +2,6 @@ package com.example.demo5.fonc;
 
 import com.example.demo5.conn.Connexion;
 import com.example.demo5.entities.*;
-import javafx.scene.control.Tab;
 
 import java.sql.*;
 import java.util.ArrayList;
